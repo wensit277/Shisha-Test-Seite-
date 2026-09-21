@@ -1,1 +1,343 @@
-# Shisha-Test-Seite-
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kompis Shisha Bar & Lounge | Wesseling</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js für flüssigen Seitenwechsel -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(rgba(3, 7, 18, 0.85), rgba(3, 7, 18, 0.95)), url('https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        [x-cloak] { display: none !important; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030712; }
+        ::-webkit-scrollbar-thumb { background: #9333ea; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #c084fc; }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100 font-sans antialiased selection:bg-purple-600 selection:text-white" x-data="{ activePage: 'home', mobileMenu: false }">
+
+    <!-- Top Action / Special Banner -->
+    <div class="bg-gradient-to-r from-purple-700 via-pink-600 to-purple-700 text-white text-xs font-black py-2 px-4 text-center tracking-wider uppercase flex items-center justify-center gap-2 shadow-lg">
+        <i class="fa-solid fa-fire animate-bounce"></i> JEDEN MONTAG: Alle Fruchtshishas für nur 9,90 €! <i class="fa-solid fa-fire animate-bounce"></i>
+    </div>
+
+    <!-- Master Navigation -->
+    <nav class="sticky top-0 z-50 bg-gray-900/95 backdrop-blur-xl border-b border-gray-800 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+            <a href="#" @click.prevent="activePage = 'home'" class="text-2xl md:text-3xl font-black tracking-wider text-white flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-purple-600 text-white flex items-center justify-center text-xl shadow-lg shadow-purple-600/30 group-hover:rotate-12 transition transform">
+                    <i class="fa-solid fa-smoking"></i>
+                </div>
+                KOMPIS<span class="text-purple-500">.</span>
+            </a>
+
+            <!-- Desktop Links -->
+            <div class="hidden lg:flex items-center space-x-1 bg-gray-950/70 p-2 rounded-2xl border border-gray-800">
+                <button @click="activePage = 'home'" :class="activePage === 'home' ? 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-600/30' : 'text-gray-300 hover:text-white'" class="px-5 py-2.5 rounded-xl text-sm transition">Startseite</button>
+                <button @click="activePage = 'menu'" :class="activePage === 'menu' ? 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-600/30' : 'text-gray-300 hover:text-white'" class="px-5 py-2.5 rounded-xl text-sm transition">Shishas & Karte</button>
+                <button @click="activePage = 'specials'" :class="activePage === 'specials' ? 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-600/30' : 'text-gray-300 hover:text-white'" class="px-5 py-2.5 rounded-xl text-sm transition">Montags-Special</button>
+                <button @click="activePage = 'gallery'" :class="activePage === 'gallery' ? 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-600/30' : 'text-gray-300 hover:text-white'" class="px-5 py-2.5 rounded-xl text-sm transition">Ambiente</button>
+                <button @click="activePage = 'contact'" :class="activePage === 'contact' ? 'bg-purple-600 text-white font-bold shadow-lg shadow-purple-600/30' : 'text-gray-300 hover:text-white'" class="px-5 py-2.5 rounded-xl text-sm transition">Kontakt & Anfahrt</button>
+            </div>
+
+            <!-- WhatsApp CTA Button -->
+            <div class="hidden lg:flex items-center">
+                <a href="https://wa.me/4917666685940?text=Hallo,%20ich%20möchte%20einen%20Tisch%20in%20der%20Kompis%20Lounge%20reservieren!" target="_blank" class="bg-green-600 hover:bg-green-500 text-white font-bold px-6 py-3 rounded-2xl text-sm transition shadow-xl shadow-green-600/20 flex items-center gap-3 transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Tisch reservieren
+                </a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button @click="mobileMenu = !mobileMenu" class="lg:hidden text-3xl text-gray-300 focus:outline-none bg-gray-900 p-3 rounded-2xl border border-gray-800">
+                <i :class="mobileMenu ? 'fa-solid fa-xmark text-purple-500' : 'fa-solid fa-bars'"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div x-show="mobileMenu" x-cloak class="lg:hidden bg-gray-900 border-b border-gray-800 px-6 py-8 space-y-4 shadow-2xl">
+            <button @click="activePage = 'home'; mobileMenu = false" class="block w-full text-left font-bold text-lg py-3 px-4 rounded-xl hover:bg-gray-800 hover:text-purple-400 transition">Startseite</button>
+            <button @click="activePage = 'menu'; mobileMenu = false" class="block w-full text-left font-bold text-lg py-3 px-4 rounded-xl hover:bg-gray-800 hover:text-purple-400 transition">Shishas & Karte</button>
+            <button @click="activePage = 'specials'; mobileMenu = false" class="block w-full text-left font-bold text-lg py-3 px-4 rounded-xl hover:bg-gray-800 hover:text-purple-400 transition">Montags-Special</button>
+            <button @click="activePage = 'gallery'; mobileMenu = false" class="block w-full text-left font-bold text-lg py-3 px-4 rounded-xl hover:bg-gray-800 hover:text-purple-400 transition">Ambiente</button>
+            <button @click="activePage = 'contact'; mobileMenu = false" class="block w-full text-left font-bold text-lg py-3 px-4 rounded-xl hover:bg-gray-800 hover:text-purple-400 transition">Kontakt & Anfahrt</button>
+            <div class="pt-4 border-t border-gray-800">
+                <a href="https://wa.me/4917666685940?text=Hallo,%20ich%20möchte%20einen%20Tisch%20in%20der%20Kompis%20Lounge%20reservieren!" target="_blank" class="block bg-green-600 text-white text-center font-bold py-4 rounded-2xl shadow-lg">
+                    <i class="fa-brands fa-whatsapp mr-2"></i> WhatsApp Tisch-Reservierung
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT VIEWS -->
+    <main>
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <section x-show="activePage === 'home'" x-cloak>
+            <!-- Hero -->
+            <header class="hero-bg min-h-[90vh] flex items-center justify-center text-center px-6 relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-gray-950 via-transparent to-transparent"></div>
+                <div class="max-w-4xl relative z-10">
+                    <span class="text-purple-400 font-extrabold uppercase tracking-[0.3em] text-xs bg-purple-600/10 px-5 py-2 rounded-full border border-purple-500/30 inline-block mb-6 shadow-lg">
+                        🔥 Good Shisha • Good Vibes • Good Friends[span_6](start_span)[span_6](end_span)
+                    </span>
+                    <h1 class="text-5xl md:text-8xl font-black mt-2 mb-6 leading-[1.1] tracking-tight">
+                        Mehr als nur eine <span class="text-purple-500 underline decoration-purple-500/40">Lounge[span_7](start_span)[span_7](end_span).</span>
+                    </h1>
+                    <p class="text-gray-300 text-xl md:text-2xl mb-10 max-w-2xl mx-auto leading-relaxed">
+                        Genießt erstklassige Shishas, eiskalte Drinks und entspannte Musik in Wesselings bester Location[span_8](start_span)[span_8](end_span)[span_9](start_span)[span_9](end_span).
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-5">
+                        <button @click="activePage = 'specials'" class="bg-purple-600 hover:bg-purple-500 text-white font-black px-10 py-5 rounded-2xl transition shadow-2xl shadow-purple-600/40 text-lg transform hover:-translate-y-1">
+                            Montags-Angebot (9,90 €)[span_10](start_span)[span_10](end_span)
+                        </button>
+                        <button @click="activePage = 'contact'" class="bg-gray-900/90 hover:bg-gray-800 text-white font-bold px-10 py-5 rounded-2xl border border-gray-700 transition text-lg backdrop-blur-md">
+                            Tisch reservieren
+                        </button>
+                    </div>
+
+                    <!-- Trust Stats -->
+                    <div class="grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-20 pt-10 border-t border-gray-800/80">
+                        <div>
+                            <div class="text-3xl md:text-4xl font-black text-purple-400">4.9★</div>
+                            <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">101+ Bewertungen[span_11](start_span)[span_11](end_span)</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl md:text-4xl font-black text-purple-400">10-20€</div>
+                            <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Faire Preise[span_12](start_span)[span_12](end_span)</div>
+                        </div>
+                        <div>
+                            <div class="text-3xl md:text-4xl font-black text-purple-400">Wesseling</div>
+                            <div class="text-xs text-gray-400 mt-1 uppercase tracking-wider">Bahnhofstraße 40[span_13](start_span)[span_13](end_span)</div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Highlights / Features -->
+            <section class="py-32 px-6 max-w-7xl mx-auto">
+                <div class="text-center mb-20">
+                    <span class="text-purple-500 font-bold uppercase tracking-widest text-xs">Das Kompis Erlebnis</span>
+                    <h2 class="text-4xl md:text-6xl font-black mt-3 mb-6">Warum zu uns?</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-lg">Gemütliche Ledersofas, atemberaubendes Lichtambiente und erstklassiger Tabak warten auf euch.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-10">
+                    <div class="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 p-10 rounded-3xl hover:border-purple-500/60 transition group shadow-xl">
+                        <div class="w-16 h-16 bg-purple-600/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-wind"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Premium Shishas</h3>
+                        <p class="text-gray-400 leading-relaxed">Perfekter Durchzug, massig Rauch und eine riesige Auswahl an Top-Tabaksorten für maximalen Genuss.</p>
+                    </div>
+                    <div class="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 p-10 rounded-3xl hover:border-purple-500/60 transition group shadow-xl">
+                        <div class="w-16 h-16 bg-purple-600/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-martini-glass-citrus"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Eiskalte Drinks</h3>
+                        <p class="text-gray-400 leading-relaxed">Erfrischende Cocktails, Softdrinks und Biere runden euren perfekten Abend in der Lounge ab.</p>
+                    </div>
+                    <div class="bg-gradient-to-b from-gray-900 to-gray-950 border border-gray-800 p-10 rounded-3xl hover:border-purple-500/60 transition group shadow-xl">
+                        <div class="w-16 h-16 bg-purple-600/10 text-purple-400 rounded-2xl flex items-center justify-center text-3xl mb-8 group-hover:bg-purple-600 group-hover:text-white transition">
+                            <i class="fa-solid fa-couch"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Edles Ambiente</h3>
+                        <p class="text-gray-400 leading-relaxed">Stimmungsvolle Neon-Beleuchtung, bequeme Lounge-Möbel und die ideale Kulisse für eure Abende.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+
+        <!-- ================= PAGE 2: MENU ================= -->
+        <section x-show="activePage === 'menu'" x-cloak class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-purple-500 font-bold uppercase tracking-widest text-xs">Genusskarte</span>
+                <h2 class="text-4xl md:text-6xl font-black mt-3 mb-4">Shishas & Getränke</h2>
+                <p class="text-gray-400 text-lg">Wählt aus unseren erstklassigen Aromen und erfrischenden Drinks.</p>
+            </div>
+
+            <div class="space-y-16">
+                <!-- Shisha Kategorie -->
+                <div>
+                    <h3 class="text-3xl font-black text-purple-400 mb-8 border-b border-gray-800 pb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-smoking"></i> Shisha Klassiker & Spezial
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Love 66 (Wassermelone, Honigmelone, Maracuja, Minze)</h4>
+                                <p class="text-gray-400 text-sm">Der absolute Bestseller in der Lounge.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">12,00 €</span>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Colosseum (Traube, Minze & Frische)</h4>
+                                <p class="text-gray-400 text-sm">Intensiver Geschmack mit eisigem Abgang.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">12,00 €</span>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Mi Amor (Banane, Ananas & Minze)</h4>
+                                <p class="text-gray-400 text-sm">Fruchtig-süß und extrem smooth zu rauchen.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">12,00 €</span>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Lady Killer (Mango, Beeren & Minze)</h4>
+                                <p class="text-gray-400 text-sm">Ein absoluter Klassiker für jeden Abend.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">12,00 €</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Drinks Kategorie -->
+                <div>
+                    <h3 class="text-3xl font-black text-purple-400 mb-8 border-b border-gray-800 pb-3 flex items-center gap-3">
+                        <i class="fa-solid fa-beer-mug-empty"></i> Erfrischungen & Cocktails
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Eistee Hausgemacht (Maracuja / Beere)</h4>
+                                <p class="text-gray-400 text-sm">Frisch zubereitet mit echten Früchten.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">5,50 €</span>
+                        </div>
+                        <div class="bg-gray-900 border border-gray-800 p-8 rounded-3xl flex items-center justify-between hover:border-purple-500/50 transition">
+                            <div>
+                                <h4 class="text-xl font-bold mb-2">Mojito Classic / Fruchtig</h4>
+                                <p class="text-gray-400 text-sm">Mit frischer Minze und Limetten.</p>
+                            </div>
+                            <span class="text-purple-400 font-black text-2xl ml-6">8,50 €</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 3: SPECIALS ================= -->
+        <section x-show="activePage === 'specials'" x-cloak class="py-24 px-6 max-w-5xl mx-auto">
+            <div class="bg-gradient-to-br from-purple-900/40 via-gray-900 to-gray-950 border-2 border-purple-600/50 p-10 md:p-16 rounded-3xl shadow-2xl relative overflow-hidden text-center">
+                <div class="absolute -right-20 -top-20 w-64 h-64 bg-purple-600/20 rounded-full blur-3xl pointer-events-none"></div>
+                <span class="text-pink-400 font-black uppercase tracking-[0.3em] text-xs bg-pink-500/10 px-5 py-2 rounded-full border border-pink-500/30 inline-block mb-6">
+                    🔥 Highlight der Woche[span_14](start_span)[span_14](end_span)
+                </span>
+                <h2 class="text-4xl md:text-7xl font-black mt-2 mb-6 text-white">Jeden Montag <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500">Fruchtshishas für 9,90 €</span>[span_15](start_span)[span_15](end_span)</h2>
+                <p class="text-gray-300 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+                    Starte perfekt in die Woche! Jeden Montag bekommst du bei uns **alle Sorten Fruchtshishas** zum absoluten Hammerpreis von nur 9,90 €[span_16](start_span)[span_16](end_span) – ohne Kompromisse, volle Frische und bester Geschmack!
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="https://wa.me/4917666685940?text=Hallo,%20ich%20möchte%20einen%20Tisch%20fürs%20Montags-Special%20reservieren!" target="_blank" class="bg-green-600 hover:bg-green-500 text-white font-black px-8 py-4 rounded-2xl text-lg shadow-xl flex items-center justify-center gap-3 transition transform hover:scale-105">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Montags-Tisch sichern[span_17](start_span)[span_17](end_span)
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 4: GALLERY ================= -->
+        <section x-show="activePage === 'gallery'" x-cloak class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-purple-500 font-bold uppercase tracking-widest text-xs">Atmosphäre</span>
+                <h2 class="text-4xl md:text-6xl font-black mt-3 mb-4">Das Ambiente</h2>
+                <p class="text-gray-400 text-lg">Einblicke in unsere Räumlichkeiten und Shisha-Kreationen.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="rounded-3xl overflow-hidden h-80 border border-gray-800 shadow-2xl group">
+                    <img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Lounge interior">
+                </div>
+                <div class="rounded-3xl overflow-hidden h-80 border border-gray-800 shadow-2xl group">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Bar area">
+                </div>
+                <div class="rounded-3xl overflow-hidden h-80 border border-gray-800 shadow-2xl group">
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" alt="Drinks">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= PAGE 5: CONTACT & MAPS ================= -->
+        <section x-show="activePage === 'contact'" x-cloak class="py-24 px-6 max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <span class="text-purple-500 font-bold uppercase tracking-widest text-xs">Besucht uns</span>
+                <h2 class="text-4xl md:text-6xl font-black mt-3 mb-4">Kontakt & Standort</h2>
+                <p class="text-gray-400 text-lg">Komm direkt vorbei oder reserviere deinen Tisch unkompliziert.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Infos & WhatsApp -->
+                <div class="bg-gray-900 border border-gray-800 p-10 rounded-3xl space-y-8 shadow-2xl">
+                    <h3 class="text-3xl font-bold">Kompis Shisha Bar & Lounge</h3>
+                    <ul class="space-y-6 text-gray-300 text-lg">
+                        <li class="flex items-start gap-4">
+                            <i class="fa-solid fa-location-dot text-purple-500 text-2xl mt-1"></i>
+                            <div>
+                                <strong class="block text-white">Adresse</strong>
+                                Bahnhofstraße 40, 50389 Wesseling[span_18](start_span)[span_18](end_span)
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fa-solid fa-clock text-purple-500 text-2xl mt-1"></i>
+                            <div>
+                                <strong class="block text-white">Öffnungszeiten</strong>
+                                Dienstag – Sonntag ab 16:00 Uhr geöffnet (Montag Ruhetag / Special)[span_19](start_span)[span_19](end_span)[span_20](start_span)[span_20](end_span)
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <i class="fa-solid fa-phone text-purple-500 text-2xl mt-1"></i>
+                            <div>
+                                <strong class="block text-white">Telefon</strong>
+                                0163 2637727[span_21](start_span)[span_21](end_span)
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div class="pt-8 border-t border-gray-800">
+                        <h4 class="font-bold mb-4 text-xl">Direkt per WhatsApp reservieren</h4>
+                        <a href="https://wa.me/4917666685940?text=Hallo,%20ich%20möchte%20einen%20Tisch%20in%20der%20Kompis%20Lounge%20reservieren!" target="_blank" class="w-full bg-green-600 hover:bg-green-500 text-white font-black py-5 rounded-2xl flex items-center justify-center gap-3 text-xl shadow-2xl transition transform hover:scale-[1.02]">
+                            <i class="fa-brands fa-whatsapp text-3xl"></i> WhatsApp Tisch-Chat starten
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Maps Embed für Wesseling Bahnhofstr. 40 -->
+                <div class="rounded-3xl overflow-hidden border border-gray-800 h-full min-h-[450px] shadow-2xl">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2488.5!2d6.975!3d50.825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bf2542a1!2sBahnhofstraße%2040%2C%2050389%20Wesseling!5e0!3m2!1sde!2sde!4v1620000000000!5m2!1sde!2sde" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-900 mt-32 text-gray-500 bg-gray-950">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+            <p>&copy; 2026 Kompis Shisha Bar & Lounge Wesseling. Alle Rechte vorbehalten[span_22](start_span)[span_22](end_span).</p>
+            <div class="flex space-x-6 text-sm">
+                <a href="#" class="hover:text-purple-400 transition">Impressum</a>
+                <a href="#" class="hover:text-purple-400 transition">Datenschutz</a>
+            </div>
+            <p class="text-purple-400 font-bold">Designed & Developed by IT Bros</p>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/4917666685940?text=Hallo,%20ich%20möchte%20einen%20Tisch%20reservieren!" target="_blank" class="fixed bottom-6 right-6 bg-green-600 hover:bg-green-500 text-white w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl transition transform hover:scale-110 z-50">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
